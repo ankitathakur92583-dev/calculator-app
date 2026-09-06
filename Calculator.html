@@ -1,0 +1,307 @@
+<html>
+  <head>
+    <style>
+            /* CALCULATER */
+      .main{
+        background-color: #dddbdb;
+      padding: 10px;
+      }
+      .cal-cointer{
+        background-color: #57aeaf;
+        padding: 10px;
+        margin-bottom: 58px;
+      }
+      h1{
+        text-align: center;
+        color: white;
+      }
+      .head{
+        padding: 10px 20px ;
+        display: grid;
+      }
+      .head1{
+        font-family: 'Digital-7', monospace;
+        height: 20px;
+        border: 2px solid gray;
+        background-color: white;
+        padding: 35px 50px;
+        text-align: end;
+        font-size: 17px;
+        font-weight: bold;
+        overflow: scroll;
+      }
+      input{
+        width: 50%;
+        position: relative;
+        top: -25px;
+        left: 150px;
+        border: none;
+        text-align: end;
+      }
+      .head2{
+        border: 1px solid black;
+        background-color: #b89595;
+        text-align: center;
+        margin-top: 10px;
+        padding: 5px;
+        border-radius: 10px;
+        font-weight: bold;
+      }
+      
+      .hero{
+        
+        padding: 20px 20px ;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+      
+        
+      }
+      .footer{
+        
+        padding: 20px 20px ;
+      }
+      .button{
+        border: 2px solid black;
+        padding: 10px 10px;
+        font-weight: bold;
+        font-size: 25px;
+        margin: 4px;
+        border-radius: 10px;
+      }
+      .memory{
+        border: 2px solid black;
+        padding: 10px 10px;
+        font-weight: bold;
+        font-size: 25px;
+        margin: 4px;
+        border-radius: 10px;
+      }
+      .equl{
+        width: 100%;
+        padding: 1px 140px;
+        font-weight: bold;
+        font-size: 50px;
+      }
+      @media(min-width:1024px){
+        h1{
+          font-size: 7rem;
+          position: relative;
+          top: 10rem;
+          padding: 4rem;
+        }
+      .cal-cointer{
+      margin :200px;
+      padding: 2rem;
+      margin-bottom: 25rem;
+      }
+      .head1{
+      height: 12rem;
+      font-size: 4rem;
+      }
+      input{
+        left: 34rem;
+        top: -4.2rem;
+        height: 4rem;
+        font-size: 3rem;
+      }
+      .head2{
+        padding: 1rem;
+        font-size: 3rem;
+      }
+      .button{
+        border: 4px solid black;
+        padding: 1rem 1rem;
+        font-size: 6rem;
+        border-radius: 2rem;
+      }
+      .memory{
+        border: 4px solid black;
+        padding: 1rem 1rem;
+        font-size: 7rem;
+        border-radius: 2rem;
+      }
+      .equl{
+        font-size: 10rem;
+        margin-top: 2rem;
+        
+      }
+      }
+    </style>
+  </head>
+  <body>
+     <div class="main">
+   <h1>CALCULATER</h1>
+   <div class="cal-cointer">
+     <div class="head">
+       <div class="head1"> </div>
+       <input id="resultbox">
+       <div class="head2">Scientific Mode</div>
+     </div>
+     
+     <div class="hero">
+     <button class="button" id="precent">%</button>
+     <button class="memory" id="inc">M+</button>
+     <button class="memory" id="dec">M-</button>
+     <button class="memory" id="MR">MR</button>
+      <button class="button" id="clear">C</button>
+      <button class="button" id="divide">1\X</button>
+      <button class="button">7</button>
+      <button class="button">8</button>
+      <button class="button">9</button>
+     <button class="button">/</button>
+   <button class="button" id="sqrt">√x</button>
+      <button class="button">4</button>
+      <button class="button">5</button>
+      <button class="button">6</button>
+      <button class="button">*</button>
+  <button class="button" id="squre">x²</button>
+      <button class="button">1</button>
+      <button class="button">2</button>
+      <button class="button">3</button>
+      <button class="button">-</button>
+ <button class="memory" id="removL">⌫</button>
+      <button class="button">0</button>
+      <button class="button">.</button>
+      <button class="button" id="breakts">(-)</button>
+      <button class="button">+</button>
+     </div>
+     
+     <div class="footer">
+       <button class="equl">=</button>
+     </div>
+    </div>
+ </div>
+ <script src="Calculator.js"> 
+
+let buttons = document.querySelectorAll(".button")
+let box = document.querySelector(".head1")
+let Equle = document.querySelector(".equl")
+let clear = document.querySelector("#clear")
+let resultBox = document.querySelector("#resultbox")
+
+ let count = 0;
+ buttons.forEach((button) => {
+   button.addEventListener("click",()=>{
+     if(count < 52){
+   box.innerText += button.innerText ;
+   resultBox.value = eval(box.innerText) 
+ count++
+   }
+});
+ });
+ Equle.addEventListener("click", () => {
+//   box.innerText = eval(box.innerText);
+try {
+  let expression = box.innerText
+      .replace(/÷/g, "/")
+      .replace(/\s/g, "");
+
+  box.innerText = Function("return " +
+  expression)();
+  count = box.innerText.length ;
+} catch{
+  box.innerText = "Error";
+}
+resultBox.value  = "";
+});
+
+          //  Clear  //
+ clear.addEventListener("click",()=>{
+   box.innerText = "";
+   resultBox.value = "";
+ })
+ let MPlus = document.querySelector("#inc")
+let Mdec = document.querySelector("#dec")
+let show = document.querySelector("#MR")
+  //M+ increase memory //
+  let memory = 0;
+  
+  MPlus.addEventListener("click", () => {
+    let value = Number(box.innerText) || 0;
+  memory += value;
+
+  box.innerText = ""; // clear after storing
+  count = 0;
+  })
+ Mdec.addEventListener("click", () => {
+    let value = Number(box.innerText) || 0;
+  memory -= value;
+
+  box.innerText = "";
+  count = 0;
+  })
+  show.addEventListener("click", () => {
+    box.innerText = memory;
+    count = box.innerText.length;
+  })
+  // removelast chacarcter//
+ let removelast = document.querySelector("#removL")
+removelast.addEventListener("click", () => {
+if (box.innerText.length > 0) {
+  box.innerText = box.innerText.slice(0,-1);
+}
+});
+//  1/X divided by 1
+let devide = document.querySelector("#divide")
+
+ devide.addEventListener("click", () => {
+  let value = parseFloat(box.innerText);
+  
+ if(!isNaN(value)) {
+    box.innerText = 1 / value;
+  }else{
+    box.innerText = "Error";
+  }
+});
+//√underood//
+let sqrtBtn = document.querySelector("#sqrt")
+
+sqrtBtn.addEventListener("click", ()=>{
+  let value = parseFloat(box.innerText) ;
+  if (!isNaN(value) && value >= 0) {
+    box.innerText = Math.sqrt(value);
+  } else {
+    box.innerText = "0";
+  }
+});
+  //Square  2//
+let Square = document.querySelector("#squre");
+
+Square.addEventListener("click",()=>{
+  let value = parseFloat(box.innerText) 
+  
+  if (!isNaN(value)) {
+    box.innerText = `${value * value}`;
+    resultBox.innerText = `${value * value}`;
+}else {
+    box.innerText = "0";
+  }
+});
+// % presents //
+let precent = document.querySelector("#precent");
+
+precent.addEventListener("click", () => {
+  let value = parseFloat(box.innerText);
+
+  if (!isNaN(value)) {
+    box.innerText = value / 100;
+  } else {
+    box.innerText = "0";
+  }
+});
+ //  (  )  breakts //
+let breakts = document.querySelector("#breakts");
+
+breakts.addEventListener("click", () => {
+  let value = parseFloat(box.innerText);
+  if(!isNaN(value)){
+  let B = box.innerText = "(" + value +")"
+  }else{
+    box.innerText = "Error";
+  }
+});
+
+ 
+ </script>
+  </body>
+</html>
